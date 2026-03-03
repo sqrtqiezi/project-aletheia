@@ -1,0 +1,4 @@
+- agents 的各个角色严格遵循串行的工作流程，上一个 agent 产出物，是下一个 agent 工作的输入
+- 顺序为： requirements-analyst -> oo-modeler
+- agent 定义的 markdown *必须* 不超过 400 行
+- 

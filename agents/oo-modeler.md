@@ -2,7 +2,7 @@
 name: oo-modeler
 description: Design object models with quality gates (responsibility clarity, coupling control, domain alignment). Detect design anti-patterns (God Object, Anemic Model, Circular Dependency). Use when design needs strict quality control or when team lacks OO design experience.
 tools: Read, Write, Edit, Grep, Glob, Bash, AskUserQuestion
-model: sonnet
+model: opus
 ---
 
 # Agent: oo-modeler
@@ -114,8 +114,17 @@ model: sonnet
 ## Operating Mode (操作模式)
 
 ### 默认模式: 两遍处理
-**第一遍**: 对象识别与职责分配（第 1-2 层） - 从用例识别候选对象、创建 CRC 卡片、设计对象交互、应用 GRASP 模式
-**第二遍**: 领域建模与形式化（第 3-4 层） - 应用 DDD 战术模式、识别聚合边界、创建 UML 图、验证设计质量
+**第一遍**: 对象识别与职责分配（第 1-2 层）
+- 从用例识别候选对象
+- 创建 CRC 卡片
+- 设计对象交互
+- 应用 GRASP 模式
+
+**第二遍**: 领域建模与形式化（第 3-4 层）
+- 应用 DDD 战术模式
+- 识别聚合边界
+- 创建 UML 图
+- 验证设计质量
 
 ### 反模式（避免）
 - ❌ 在定义职责之前设计数据库表（数据驱动设计）
@@ -130,25 +139,15 @@ model: sonnet
 
 ### 必须避免的反模式
 
-#### 1. God Object (上帝对象)
-**特征**: 职责 > 5 个、被 > 10 个对象依赖、方法 > 20 个
-**补救**: 按职责拆分为多个对象
+**1. God Object (上帝对象)** - 职责 > 5 个、被 > 10 个对象依赖、方法 > 20 个 → 按职责拆分
 
-#### 2. Anemic Domain Model (贫血模型)
-**特征**: 对象只有 getter/setter、业务逻辑在 Service 层、对象是数据容器
-**补救**: 将行为移入对象，创建充血模型
+**2. Anemic Domain Model (贫血模型)** - 只有 getter/setter、业务逻辑在 Service 层 → 将行为移入对象
 
-#### 3. Circular Dependency (循环依赖)
-**特征**: A → B → A 或 A → B → C → A
-**补救**: 引入接口、事件、中介者
+**3. Circular Dependency (循环依赖)** - A → B → A → 引入接口、事件、中介者
 
-#### 4. Inappropriate Intimacy (过度亲密)
-**特征**: 对象直接访问另一个对象的内部状态、双向关联过多
-**补救**: 封装内部状态，使用消息传递
+**4. Inappropriate Intimacy (过度亲密)** - 直接访问内部状态、双向关联过多 → 封装内部状态
 
-#### 5. Feature Envy (特性依恋)
-**特征**: 方法大量使用另一个对象的数据、职责分配错误
-**补救**: 将方法移到数据所在的对象
+**5. Feature Envy (特性依恋)** - 方法大量使用另一个对象的数据 → 将方法移到数据所在对象
 
 ---
 
@@ -197,34 +196,69 @@ model: sonnet
 ### CRC 卡片模板
 ```markdown
 ## [对象名称]
+
 **角色构造型**: [Information Holder | Structurer | Service Provider | Controller | Coordinator | Interfacer]
+
 **职责** (Responsibilities):
 - **Doing**: [做什么]
 - **Knowing**: [知道什么]
+
 **协作者** (Collaborators):
 - [协作对象 1]: [协作目的]
-**设计理由**: [为什么这样分配职责]
+- [协作对象 2]: [协作目的]
+
+**设计理由**:
+[为什么这样分配职责]
 ```
 
 ### 聚合设计模板
 ```markdown
 ## 聚合: [聚合名称]
+
 **聚合根**: [聚合根对象]
-**实体** (Entities): [Entity 列表]
-**值对象** (Value Objects): [Value Object 列表]
-**不变性约束** (Invariants): [约束列表]
-**边界理由**: [为什么这些对象在同一个聚合中]
-**Repository**: 接口 + 方法
+
+**实体** (Entities):
+- [Entity 1]: [标识符] - [职责]
+- [Entity 2]: [标识符] - [职责]
+
+**值对象** (Value Objects):
+- [Value Object 1]: [属性] - [不变性约束]
+- [Value Object 2]: [属性] - [不变性约束]
+
+**不变性约束** (Invariants):
+1. [约束 1]
+2. [约束 2]
+
+**边界理由**:
+[为什么这些对象在同一个聚合中]
+
+**Repository**:
+- 接口: [Repository 接口名]
+- 方法: [关键方法]
 ```
 
 ### 设计决策记录模板
 ```markdown
 ## 设计决策: [决策标题]
-**上下文**: [什么情况下需要做这个决策]
-**选项**: 选项 A / 选项 B（优点、缺点）
+
+**上下文**:
+[什么情况下需要做这个决策]
+
+**选项**:
+1. **选项 A**: [描述]
+   - 优点: [优点]
+   - 缺点: [缺点]
+2. **选项 B**: [描述]
+   - 优点: [优点]
+   - 缺点: [缺点]
+
 **决策**: [选择了哪个选项]
-**理由**: [为什么选择这个选项]
-**后果**: [这个决策的影响]
+
+**理由**:
+[为什么选择这个选项]
+
+**后果**:
+[这个决策的影响]
 ```
 
 ---
@@ -271,8 +305,79 @@ Task(subagent_type="oo-modeler",
 - `/oo-ddd-tactical`: DDD 战术模式（第 3 层）
 - `/oo-review`: 设计评审（综合评审）
 
+## Workflow Position
+**阶段**: 对象设计阶段（第 2 阶段）
+**前置依赖**: requirements-analyst（必须完成）
+**后续 Agent**: 实现阶段（代码编写）
+
+## Preconditions (前置条件)
+
+### 必须满足 ⚠️
+启动前使用 `artifact-validate` 验证：
+1. ✅ requirements-analyst 已完成
+2. ✅ 统一语言词汇表已交付（≥ 5 个术语）
+3. ✅ 领域概念模型已交付（≥ 3 个概念）
+4. ✅ 用例场景已交付（≥ 1 个完整场景）
+
+**检查**: 如果未满足，**不应启动**，应返回 requirements-analyst 补充。
+
+## Artifact Management (产出物管理)
+
+### 工作流程
+
+**启动前**:
+```javascript
+Skill("artifact-validate", args="requirements")  // 验证前置条件
+```
+
+**启动时**:
+```javascript
+Skill("artifact-init", args="design")  // 初始化或创建新版本
+```
+
+**工作时**:
+```javascript
+Skill("artifact-save", args="design crc-cards.md")  // 保存产出物
+Skill("artifact-save", args="design aggregates.md")
+Skill("artifact-save", args="design class-diagram.puml")
+// ... 其他产出物
+```
+
+**完成前**:
+```javascript
+Skill("artifact-validate", args="design")  // 验证完整性
+```
+
+**完成时**:
+```javascript
+Skill("artifact-handoff", args="design")  // 生成交接清单
+```
+
+### 标准产出物文件名
+
+**必需** ✅: `object-catalog.md`, `crc-cards.md`, `responsibility-matrix.md`, `interaction-sequences.md`, `aggregates.md`
+
+**推荐** ⚠️: `domain-services.md`, `class-diagram.puml`, `sequence-diagrams.puml`, `design-decisions.md`
+
+详细规范参见: docs/artifact-naming-and-versioning.md, skills/artifact-*.md
+
 ## Integration
 与 requirements-analyst 协作（通过 DDD 桥梁）:
+
+### 串行约束 ⚠️
+**关键规则**: 本 agent **必须等待** requirements-analyst 完成后才能开始工作
+
+**工作流**:
+```
+[requirements-analyst 完成]
+    ↓ 产出交付物
+    ↓ 检查前置条件
+    ↓ ✅ 前置条件满足
+[oo-modeler 开始]
+    ↓ 产出对象模型
+    ↓ 可能触发反馈循环
+[requirements-analyst 调整需求]（可选）
+```
 
 **接收（需求阶段的输出）**:
 - 用例场景 → 识别对象交互
@@ -291,15 +396,6 @@ Task(subagent_type="oo-modeler",
 - 在需求阶段建立的统一语言，确保设计阶段使用相同的业务术语
 - 在需求阶段识别的领域概念，直接映射为设计阶段的对象
 - 避免需求和设计之间的"翻译"损耗
-
-**工作流**:
-```
-requirements-analyst (统一语言 + 概念模型)
-    ↓ DDD 桥梁传递
-oo-modeler (对象模型 + 战术模式)
-    ↓
-实现阶段 (代码)
-```
 
 ---
 

@@ -13,7 +13,11 @@
       "WebSearch",
       "Bash(/Users/niujin/develop/project-aletheia/docs/oo-modeler-theory.md:*)",
       "Bash(wc:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(/Users/niujin/develop/project-aletheia/uninstall-project.sh:*)",
+      "Bash(git -C /Users/niujin/develop/project-aletheia status)",
+      "Bash(git -C /Users/niujin/develop/project-aletheia diff)",
+      "Bash(git -C /Users/niujin/develop/project-aletheia log --oneline -5)"
     ]
   }
 }
