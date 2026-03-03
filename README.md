@@ -44,24 +44,34 @@ cd /path/to/your/project
 
 ## 使用
 
-安装此插件以在你的 Claude Code 环境中访问预配置的子代理、技能和钩子。
+安装后，你可以在 Claude Code 中使用以下功能：
 
-```javascript
-import { exampleAgent, exampleSkill, exampleHook } from 'project-aletheia';
-
-// 在你的 Claude Code 配置中使用导入的资产
+### Skills（技能）
+```bash
+# 调用示例 skill
+/example [参数]
 ```
+
+### Agents（代理）
+在与 Claude Code 对话时，可以通过 Task 工具调用自定义代理：
+```
+请使用 example-agent 分析这个文件
+```
+
+### Hooks（钩子）
+Hooks 会自动在命令执行前后触发，无需手动调用。
 
 ## 项目结构
 
 ```
 project-aletheia/
-├── agents/          # 自定义子代理
-│   └── example-agent.js
-├── skills/          # 可复用技能
-│   └── example-skill.js
-├── hooks/           # 事件钩子
-│   └── example-hook.js
+├── agents/          # 自定义子代理（Markdown 格式）
+│   └── example-agent.md
+├── skills/          # 可复用技能（Markdown 格式）
+│   └── example.md
+├── hooks/           # 事件钩子（Shell 脚本）
+│   ├── pre-command.sh
+│   └── post-command.sh
 ├── index.js         # 主入口文件
 ├── package.json     # 项目配置
 └── README.md        # 文档
