@@ -323,7 +323,12 @@ Task(subagent_type="oo-modeler",
 
 ## Artifact Management (产出物管理)
 
-### 工作流程
+### 工作模式
+
+**模式 1: 串行模式**（单一 agent，处理所有需求）
+**模式 2: 并行模式**（多个 agents，每个处理一个 feature 组）
+
+### 串行模式工作流程
 
 **启动前**:
 ```javascript
@@ -352,6 +357,28 @@ Skill("artifact-validate", args="design")  // 验证完整性
 ```javascript
 Skill("artifact-handoff", args="design")  // 生成交接清单
 ```
+
+### 并行模式工作流程
+
+**触发条件**: requirements/current/parallel-strategy.md 存在
+
+**启动方式**:
+```javascript
+// 由 requirements-analyst 完成后自动触发
+Skill("parallel-oo-modeling")  // 为每个 feature 组启动独立的 oo-modeler
+```
+
+**每个并行 agent 的工作流**:
+1. 在独立的 git worktree 中工作
+2. 读取共享产出物（requirements/current/shared/）
+3. 读取本组产出物（requirements/current/group/）
+4. 进行面向对象分析和设计
+5. 产出物保存到 design/current/
+6. 提交到对应的 feature 分支
+
+**输入产出物**（并行模式）:
+- **共享**: ubiquitous-language.md, domain-model.md, problem-statement.md, business-rules.md
+- **本组**: user-stories.md, use-cases.md, acceptance-criteria.md
 
 ### 标准产出物文件名
 

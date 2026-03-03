@@ -326,6 +326,9 @@ Skill("artifact-validate", args="requirements")  // 验证完整性
 **完成时**:
 ```javascript
 Skill("artifact-handoff", args="requirements")  // 生成交接清单
+
+// 如果需要并行开发，继续执行依赖分析
+Skill("story-dependency-analysis")  // 分析 User Story 依赖关系，划分并行组
 ```
 
 ### 标准产出物文件名
