@@ -10,7 +10,10 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(git remote set-url:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(/Users/niujin/develop/project-aletheia/docs/oo-modeler-theory.md:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)"
     ]
   }
 }

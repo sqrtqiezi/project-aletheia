@@ -1,0 +1,63 @@
+## 需求分析
+原始版
+- **Are Your Lights On?** — Gerald M. Weinberg
+- **Specification by Example** — Gojko Adzic
+- **Exploring Requirements: Quality Before Design** — Gerald M. Weinberg, Donald C. Gause
+- **User Stories Applied** — Mike Cohn
+- **User Story Mapping** — Jeff Patton
+
+gpt 增加版本
+- 哲学层
+Are Your Lights On? — Gerald M. Weinberg
+
+- 质量层
+Exploring Requirements: Quality Before Design — Gerald M. Weinberg, Donald C. Gause
+Software Requirements — Karl Wiegers
+Mastering the Requirements Process — Suzanne Robertson, James Robertson
+
+- 结构层
+Writing Effective Use Cases — Alistair Cockburn
+User Story Mapping — Jeff Patton
+
+- 精度层
+Specification by Example — Gojko Adzic
+
+- 语义层
+Domain-Driven Design — Eric Evans
+
+## OO 建模
+原版
+- **Object Design: Roles, Responsibilities, and Collaborations**
+- **Object-Oriented Methods: A Foundation, UML Edition** — James Martin
+
+gpt 增强
+- 第一层：责任驱动核心（Responsibility-Driven Core）
+Object Design: Roles, Responsibilities, and Collaborations — Rebecca Wirfs-Brock, Brian Wilkerson, Lauren Wiener
+
+- 第二层：交互与场景建模（Interaction & Scenario Modeling）
+Writing Effective Use Cases — Alistair Cockburn
+
+- 第三层：语义桥梁（Semantic Bridge）
+Domain-Driven Design: Tackling Complexity in the Heart of Software — Eric Evans
+
+- 第四层：形式表达与建模语言（Formal Modeling & Expression）
+Object-Oriented Methods: A Foundation, UML Edition — James Martin
+
+
+## 设计 / 架构
+- **Software Architecture in Practice** — Len Bass, Paul Clements, Rick Kazman
+- **Patterns of Enterprise Application Architecture** — Martin Fowler
+- **Domain-Driven Design** — Eric Evans
+- **Designing Data-Intensive Applications** — Martin Kleppmann
+- **Fundamentals of Software Architecture: An Engineering Approach**
+
+## 编码
+- **Refactoring** — Martin Fowler（1999；第二版 2018）
+- **Test Driven Development: By Example** — Kent Beck（2003）
+- **Working Effectively with Legacy Code** — Michael Feathers（2004）
+
+## 测试
+- **Agile Testing: A Practical Guide for Testers and Agile Teams** — Lisa Crispin, Janet Gregory
+- **More Agile Testing: Learning Journeys for the Whole Team** — Lisa Crispin, Janet Gregory
+- **xUnit Test Patterns: Refactoring Test Code** — Gerard Meszaros
+- **Lessons Learned in Software Testing** — Cem Kaner, James Bach, Bret Pettichord
