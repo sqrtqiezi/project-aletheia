@@ -1,0 +1,18 @@
+{
+  "name": "project-aletheia",
+  "version": "0.1.0",
+  "description": "一个包含可复用 agents、skills 和 hooks 的 Claude Code 插件",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "agents",
+    "skills"
+  ],
+  "author": "",
+  "license": "MIT"
+}
