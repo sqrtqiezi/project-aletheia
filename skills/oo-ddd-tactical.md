@@ -1,17 +1,7 @@
 ---
 name: oo-ddd-tactical
-version: 1.0.0
-author: project-aletheia
-description: DDD 战术模式应用，基于 Eric Evans 的领域驱动设计
-category: design
-tags:
-  - ddd
-  - domain-modeling
-  - tactical-patterns
-  - aggregate
-related_agent: oo-modeler
-theory_base:
-  - Domain-Driven Design (Evans)
+description: Apply six DDD tactical patterns (Entity, Value Object, Aggregate, Domain Service, Repository, Factory) with aggregate design and invariant enforcement. Use when translating domain concepts into implementation-ready design.
+tools: Read, Write
 ---
 
 # /oo-ddd-tactical

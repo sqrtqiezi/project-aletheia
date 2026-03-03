@@ -1,17 +1,7 @@
 ---
 name: req-use-case
-version: 1.0.0
-author: project-aletheia
-description: 用例建模，基于 Alistair Cockburn 的有效用例方法
-category: requirements
-tags:
-  - requirements
-  - use-cases
-  - scenarios
-  - modeling
-related_agent: requirements-analyst
-theory_base:
-  - Writing Effective Use Cases (Cockburn)
+description: Create structured use cases with preconditions, main success scenario, extensions using Cockburn's method. Classify by goal level (cloud/sea/fish). Use when modeling system interactions from user perspective.
+tools: Read, Write
 ---
 
 # /req-use-case

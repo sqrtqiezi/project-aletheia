@@ -1,18 +1,7 @@
 ---
 name: oo-review
-version: 1.0.0
-author: project-aletheia
-description: 对象设计评审，综合检查设计质量
-category: design
-tags:
-  - oo
-  - review
-  - quality
-  - solid
-related_agent: oo-modeler
-theory_base:
-  - Object Design (Wirfs-Brock)
-  - Domain-Driven Design (Evans)
+description: Review object design across five dimensions (responsibility assignment, cohesion/coupling, domain model alignment, collaboration design, SOLID principles). Identify common issues and provide scoring. Use before finalizing design or during design reviews.
+tools: Read
 ---
 
 # /oo-review

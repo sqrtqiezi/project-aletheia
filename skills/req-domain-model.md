@@ -1,19 +1,7 @@
 ---
 name: req-domain-model
-version: 1.0.0
-author: project-aletheia
-description: 领域概念建模，基于 DDD 的统一语言和概念模型
-category: requirements
-tags:
-  - requirements
-  - domain-modeling
-  - ubiquitous-language
-  - ddd
-related_agent: requirements-analyst
-related_skills:
-  - oo-ddd-tactical
-theory_base:
-  - Domain-Driven Design (Evans)
+description: Build domain conceptual models with ubiquitous language glossary, core concepts, relationships, bounded contexts, and context mapping using DDD. Use when establishing shared language between business and technical teams.
+tools: Read, Write
 ---
 
 # /req-domain-model

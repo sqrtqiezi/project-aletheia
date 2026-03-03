@@ -1,17 +1,7 @@
 ---
 name: req-story-map
-version: 1.0.0
-author: project-aletheia
-description: 用户故事地图，基于 Jeff Patton 的故事地图方法
-category: requirements
-tags:
-  - requirements
-  - user-stories
-  - story-mapping
-  - agile
-related_agent: requirements-analyst
-theory_base:
-  - User Story Mapping (Patton)
+description: Build user story maps with backbone (user journey), walking skeleton (key activities), and release slices using Patton's method. Use when planning product releases or visualizing user workflows.
+tools: Read, Write
 ---
 
 # /req-story-map

@@ -1,17 +1,7 @@
 ---
 name: req-example
-version: 1.0.0
-author: project-aletheia
-description: 需求实例化，基于 Gojko Adzic 的实例化需求方法
-category: requirements
-tags:
-  - requirements
-  - bdd
-  - specification-by-example
-  - acceptance-criteria
-related_agent: requirements-analyst
-theory_base:
-  - Specification by Example (Adzic)
+description: Transform abstract requirements into concrete examples using Given-When-Then format and example tables (normal, boundary, exception cases) based on Specification by Example. Use when writing acceptance criteria or BDD scenarios.
+tools: Read, Write
 ---
 
 # /req-example

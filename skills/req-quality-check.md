@@ -1,17 +1,7 @@
 ---
 name: req-quality-check
-version: 1.0.0
-author: project-aletheia
-description: 需求质量检查，基于 Wiegers 和 Robertson 的质量标准
-category: requirements
-tags:
-  - requirements
-  - quality
-  - validation
-related_agent: requirements-analyst
-theory_base:
-  - Software Requirements (Wiegers)
-  - Mastering the Requirements Process (Robertson)
+description: Check requirements quality across six dimensions (unambiguous, complete, consistent, verifiable, traceable, prioritized) based on Wiegers and Robertson standards. Use before finalizing requirements documents.
+tools: Read
 ---
 
 # /req-quality-check

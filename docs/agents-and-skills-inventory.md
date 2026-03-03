@@ -2,7 +2,7 @@
 
 ## 概述
 
-本项目包含 2 个专业领域 agents 和 9 个配套 skills（不含示例文件）。
+本项目包含 4 个专业领域 agents（含 2 个改进版本）和 11 个配套 skills（不含示例文件）。
 
 所有 agents 和 skills 都包含 YAML front matter 格式的 meta 信息，便于 Claude Code 识别和管理。
 
@@ -10,7 +10,7 @@
 
 ## Agents
 
-### 1. requirements-analyst (需求分析专家)
+### 1. requirements-analyst (需求分析专家 v1)
 
 **文件**: `agents/requirements-analyst.md`
 
@@ -18,6 +18,8 @@
 - version: 1.0.0
 - category: analysis
 - tags: requirements, analysis, use-cases, user-stories, domain-modeling, bdd
+
+**特点**: 纯理论版，基于经典理论的五层架构
 
 **认知架构**: 五层
 1. 哲学层 - 问题本质探索
@@ -51,7 +53,56 @@ Task(subagent_type="requirements-analyst",
 
 ---
 
-### 2. oo-modeler (面向对象建模专家)
+### 1.5. requirements-analyst-v2 (需求分析专家 v2)
+
+**文件**: `agents/requirements-analyst-v2.md`
+
+**Meta 信息**:
+- version: 2.0.0
+- category: analysis
+- tags: requirements, analysis, use-cases, user-stories, domain-modeling, bdd
+
+**特点**: 融合经典理论与实践门控机制
+
+**认知架构**: 五层 + 三个门控
+1. 哲学层 - 问题本质探索 + **problem_confidence_gate** ⚠️
+2. 质量层 - 需求质量保证 + **testability_gate** ⚠️
+3. 结构层 - 需求结构化表达 + **structure_before_precision_gate**
+4. 精度层 - 需求精确规约
+5. 语义层 - 领域语义一致
+
+**门控机制**:
+- **Gate 1: Problem Confidence Gate** (0-5 分评分，< 3 分不得进入下层)
+- **Gate 2: Testability Gate** (禁止模糊词汇，强制可测量性)
+- **Gate 3: Structure Before Precision Gate** (先建立全局结构，再精确化)
+
+**新增特性**:
+- 严格的输出契约（10 个必需章节）
+- 结构化提问策略（每轮最多 8 个问题）
+- 内置模板（问题简报、故事地图、Given/When/Then）
+- 可观测性钩子（指标/日志/事件）
+- 明确的质量标准（Must/Should）
+- 两遍处理模式（探索验证 + 规约强化）
+
+**相关 Skills**: 6 个
+- req-gate-check (新增)
+- req-quality-check
+- req-use-case
+- req-story-map
+- req-example
+- req-domain-model
+
+**调用方式**:
+```javascript
+Task(subagent_type="requirements-analyst",
+     prompt="分析这个功能需求的本质问题，评估问题置信度")
+```
+
+**对比文档**: `docs/requirements-analyst-comparison.md`
+
+---
+
+### 2. oo-modeler (面向对象建模专家 v1)
 
 **文件**: `agents/oo-modeler.md`
 
@@ -59,6 +110,8 @@ Task(subagent_type="requirements-analyst",
 - version: 1.0.0
 - category: design
 - tags: object-oriented, modeling, design, ddd, uml, grasp, rdd
+
+**特点**: 纯理论版，基于经典理论的四层架构
 
 **认知架构**: 四层
 1. 责任驱动核心 - 职责分配与协作设计
@@ -86,11 +139,77 @@ Task(subagent_type="oo-modeler",
 
 ---
 
+### 2.5. oo-modeler-v2 (面向对象建模专家 v2)
+
+**文件**: `agents/oo-modeler-v2.md`
+
+**Meta 信息**:
+- version: 2.0.0
+- category: design
+- tags: object-oriented, modeling, design, ddd, uml, grasp, rdd
+
+**特点**: 融合经典理论与设计门控机制
+
+**认知架构**: 四层 + 三个门控
+1. 责任驱动核心 + **responsibility_clarity_gate** ⚠️
+2. 交互与场景建模 + **coupling_control_gate** ⚠️
+3. 语义桥梁 + **domain_alignment_gate** ⚠️
+4. 形式表达
+
+**门控机制**:
+- **Gate 1: Responsibility Clarity Gate** (职责清晰度评分，检测上帝对象/懒惰对象)
+- **Gate 2: Coupling Control Gate** (耦合度控制，循环依赖检测)
+- **Gate 3: Domain Alignment Gate** (领域对齐检查，统一语言验证)
+
+**新增特性**:
+- 严格的输出契约（10 个必需章节）
+- 5 种设计反模式自动检测（God Object, Anemic Model, Circular Dependency, Inappropriate Intimacy, Feature Envy）
+- 内置模板（CRC 卡片、聚合设计、设计决策记录）
+- 具体的耦合度阈值（依赖数 ≤ 5，被依赖数 ≤ 10）
+- 技术术语检测（禁止 Manager, Service, Handler 等）
+- 两遍处理模式（对象识别 + 领域建模）
+
+**相关 Skills**: 5 个
+- oo-gate-check (新增)
+- oo-crc
+- oo-grasp
+- oo-ddd-tactical
+- oo-review
+
+**调用方式**:
+```javascript
+Task(subagent_type="oo-modeler",
+     prompt="从这个用例识别候选对象，评估职责清晰度")
+```
+
+**对比文档**: `docs/oo-modeler-comparison.md`
+
+---
+
 ## Skills
 
-### 需求分析相关 (5 个)
+### 需求分析相关 (6 个)
 
-#### 1. req-quality-check (需求质量检查)
+#### 1. req-gate-check (需求门控检查) 🆕
+
+**文件**: `skills/req-gate-check.md`
+
+**功能**: 执行三个关键门控检查，评估需求是否满足进入下一层的条件
+
+**门控检查**:
+1. **Problem Confidence Gate**: 评估问题定义清晰度（0-5 分评分）
+2. **Testability Gate**: 扫描禁止词汇，确保可测量性
+3. **Structure Before Precision Gate**: 检查结构完整性
+
+**输出**: 综合评估报告，包括评分、问题列表、改进建议、行动计划
+
+**调用**: `/req-gate-check [需求文档路径]`
+
+**关联**: requirements-analyst-v2 专用
+
+---
+
+#### 2. req-quality-check (需求质量检查)
 
 **文件**: `skills/req-quality-check.md`
 
@@ -110,7 +229,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 2. req-use-case (用例建模)
+#### 3. req-use-case (用例建模)
 
 **文件**: `skills/req-use-case.md`
 
@@ -128,7 +247,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 3. req-story-map (用户故事地图)
+#### 4. req-story-map (用户故事地图)
 
 **文件**: `skills/req-story-map.md`
 
@@ -147,7 +266,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 4. req-example (需求实例化)
+#### 5. req-example (需求实例化)
 
 **文件**: `skills/req-example.md`
 
@@ -167,7 +286,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 5. req-domain-model (领域概念建模)
+#### 6. req-domain-model (领域概念建模)
 
 **文件**: `skills/req-domain-model.md`
 
@@ -186,9 +305,35 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-### 对象建模相关 (4 个)
+### 对象建模相关 (5 个)
 
-#### 6. oo-crc (CRC 卡片建模)
+#### 7. oo-gate-check (对象设计门控检查) 🆕
+
+**文件**: `skills/oo-gate-check.md`
+
+**功能**: 执行三个关键门控检查，评估设计是否满足质量标准
+
+**门控检查**:
+1. **Responsibility Clarity Gate**: 评估职责清晰度（0-5 分评分，检测上帝对象/懒惰对象）
+2. **Coupling Control Gate**: 评估耦合度（循环依赖检测、依赖图分析）
+3. **Domain Alignment Gate**: 评估领域对齐（统一语言检查、Entity/Value Object 分类）
+
+**反模式检测**:
+- God Object (上帝对象)
+- Anemic Domain Model (贫血模型)
+- Circular Dependency (循环依赖)
+- Inappropriate Intimacy (过度亲密)
+- Feature Envy (特性依恋)
+
+**输出**: 综合评估报告，包括评分、反模式检测结果、改进建议、行动计划
+
+**调用**: `/oo-gate-check [设计文档路径]`
+
+**关联**: oo-modeler-v2 专用
+
+---
+
+#### 8. oo-crc (CRC 卡片建模)
 
 **文件**: `skills/oo-crc.md`
 
@@ -205,7 +350,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 7. oo-grasp (GRASP 模式应用)
+#### 9. oo-grasp (GRASP 模式应用)
 
 **文件**: `skills/oo-grasp.md`
 
@@ -228,7 +373,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 8. oo-ddd-tactical (DDD 战术模式)
+#### 10. oo-ddd-tactical (DDD 战术模式)
 
 **文件**: `skills/oo-ddd-tactical.md`
 
@@ -250,7 +395,7 @@ Task(subagent_type="oo-modeler",
 
 ---
 
-#### 9. oo-review (对象设计评审)
+#### 11. oo-review (对象设计评审)
 
 **文件**: `skills/oo-review.md`
 
@@ -273,48 +418,86 @@ Task(subagent_type="oo-modeler",
 
 ## 使用流程
 
-### 完整的分析-设计流程
+### 完整的分析-设计流程（v2 版本，带门控）
 
 ```
 1. 问题探索
    ↓
    Task(subagent_type="requirements-analyst",
-        prompt="分析问题本质")
+        prompt="分析问题本质，评估问题置信度")
+   ↓
+   /req-gate-check → Gate 1 评估
+   ↓ (如果 < 3 分，补充信息)
 
 2. 需求建模
    ↓
    /req-use-case [功能描述]
    /req-story-map [产品描述]
+   ↓
+   /req-gate-check → Gate 3 评估（结构完整性）
 
 3. 需求精化
    ↓
    /req-example [用户故事]
+   ↓
+   /req-gate-check → Gate 2 评估（可测试性）
 
 4. 领域建模
    ↓
    /req-domain-model [业务领域]
+   ↓
+   输出: 统一语言词汇表 + 领域概念模型
 
 5. 需求质量检查
    ↓
    /req-quality-check [需求文档]
+   /req-gate-check [需求文档] (综合评估)
 
-6. 对象识别
+---
+
+6. 对象识别（接收统一语言和概念模型）
    ↓
    Task(subagent_type="oo-modeler",
-        prompt="从用例识别对象")
+        prompt="从用例识别对象，评估职责清晰度")
    /oo-crc [用例描述]
+   ↓
+   /oo-gate-check → Gate 1 评估（职责清晰度）
+   ↓ (如果发现上帝对象，重新分配职责)
 
-7. 职责分配
+7. 职责分配与交互设计
    ↓
    /oo-grasp [场景描述]
+   ↓
+   /oo-gate-check → Gate 2 评估（耦合控制）
+   ↓ (如果有循环依赖，重构)
 
-8. 领域建模
+8. 领域建模（DDD 战术模式）
    ↓
    /oo-ddd-tactical [领域场景]
+   ↓
+   /oo-gate-check → Gate 3 评估（领域对齐）
+   ↓ (如果领域不对齐，调整命名和分类)
 
 9. 设计评审
    ↓
    /oo-review [设计文档]
+   /oo-gate-check [设计文档] (综合评估 + 反模式检测)
+
+10. 交付设计文档
+```
+
+### 经典流程（v1 版本，无门控）
+
+```
+1. 问题探索 → requirements-analyst
+2. 需求建模 → /req-use-case, /req-story-map
+3. 需求精化 → /req-example
+4. 领域建模 → /req-domain-model
+5. 需求质量检查 → /req-quality-check
+6. 对象识别 → oo-modeler, /oo-crc
+7. 职责分配 → /oo-grasp
+8. 领域建模 → /oo-ddd-tactical
+9. 设计评审 → /oo-review
 ```
 
 ---
@@ -368,22 +551,29 @@ theory_base:
 ```
 project-aletheia/
 ├── agents/
-│   ├── requirements-analyst.md (98 行，含 meta)
-│   └── oo-modeler.md (104 行，含 meta)
+│   ├── requirements-analyst.md (v1, 纯理论版)
+│   ├── requirements-analyst-v2.md (v2, 含门控机制)
+│   ├── oo-modeler.md (v1, 纯理论版)
+│   └── oo-modeler-v2.md (v2, 含门控机制)
 ├── skills/
+│   ├── req-gate-check.md (新增，v2 专用)
 │   ├── req-quality-check.md
 │   ├── req-use-case.md
 │   ├── req-story-map.md
 │   ├── req-example.md
 │   ├── req-domain-model.md
+│   ├── oo-gate-check.md (新增，v2 专用)
 │   ├── oo-crc.md
 │   ├── oo-grasp.md
 │   ├── oo-ddd-tactical.md
 │   └── oo-review.md
 └── docs/
-    ├── requirements-analyst-theory.md (详细理论，1737 行)
-    ├── oo-modeler-theory.md (详细理论，1737 行)
-    └── agent-refactoring-summary.md (重构总结)
+    ├── requirements-analyst-theory.md (详细理论)
+    ├── oo-modeler-theory.md (详细理论)
+    ├── requirements-analyst-comparison.md (v1 vs v2 对比)
+    ├── oo-modeler-comparison.md (v1 vs v2 对比)
+    ├── ddd-as-bridge.md (DDD 桥梁机制)
+    └── agents-and-skills-inventory.md (本文档)
 ```
 
 ---

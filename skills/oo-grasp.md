@@ -1,18 +1,7 @@
 ---
 name: oo-grasp
-version: 1.0.0
-author: project-aletheia
-description: GRASP 模式应用，基于职责分配模式
-category: design
-tags:
-  - oo
-  - grasp
-  - patterns
-  - responsibility
-related_agent: oo-modeler
-theory_base:
-  - Object Design (Wirfs-Brock)
-  - Applying UML and Patterns (Larman)
+description: Apply nine GRASP patterns for responsibility assignment (Information Expert, Creator, Controller, Low Coupling, High Cohesion, Polymorphism, Pure Fabrication, Indirection, Protected Variations). Use when optimizing object collaboration or resolving design issues.
+tools: Read, Write
 ---
 
 # /oo-grasp

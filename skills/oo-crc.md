@@ -1,17 +1,7 @@
 ---
 name: oo-crc
-version: 1.0.0
-author: project-aletheia
-description: CRC 卡片建模，基于 Wirfs-Brock 的责任驱动设计
-category: design
-tags:
-  - oo
-  - crc
-  - responsibility
-  - collaboration
-related_agent: oo-modeler
-theory_base:
-  - Object Design (Wirfs-Brock)
+description: Create CRC cards (Class-Responsibility-Collaborator) with six role stereotypes (Information Holder, Structurer, Service Provider, Controller, Coordinator, Interfacer) and responsibility classification (Doing/Knowing) using Wirfs-Brock's RDD. Use when identifying objects and assigning responsibilities.
+tools: Read, Write
 ---
 
 # /oo-crc
